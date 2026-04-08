@@ -48,7 +48,7 @@ export const Register = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'http://localhost:5173/dashboard'
+          redirectTo: 'https://notes-frontend-gamma-lovat.vercel.app/dashboard'
         }
       });
       

@@ -155,9 +155,6 @@ export const Profile = () => {
       // Save to localStorage
       localStorage.setItem('emailPreferences', JSON.stringify(emailPrefs));
       
-      // Here you can also save to your backend if you have a settings endpoint
-      // await API.post('/settings/email-preferences', emailPrefs);
-      
       setSuccess('Email preferences saved successfully!');
       setTimeout(() => {
         setShowPreferencesModal(false);
@@ -200,7 +197,7 @@ export const Profile = () => {
     }
   };
 
-  // ✅ Delete Account
+  // ✅ Delete Account - FIXED with production URL
   const handleDeleteAccount = async () => {
     if (confirm('⚠️ WARNING: This will permanently delete your account and ALL your notes. This cannot be undone! Are you absolutely sure?')) {
       const confirmDelete = prompt('Type "DELETE" to confirm account deletion:');
@@ -211,7 +208,8 @@ export const Profile = () => {
           const session = await supabase.auth.getSession();
           const token = session.data.session?.access_token;
           
-          const response = await fetch('http://localhost:5000/api/notes', {
+          // ✅ FIXED: Using production backend URL
+          const response = await fetch('https://notes-backend-1-kpst.onrender.com/api/notes', {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -220,7 +218,7 @@ export const Profile = () => {
           
           // Delete each note
           for (const note of notes) {
-            await fetch(`http://localhost:5000/api/notes/${note._id}`, {
+            await fetch(`https://notes-backend-1-kpst.onrender.com/api/notes/${note._id}`, {
               method: 'DELETE',
               headers: {
                 'Authorization': `Bearer ${token}`
