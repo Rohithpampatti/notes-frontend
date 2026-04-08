@@ -3,7 +3,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { OTPVerification } from './pages/OTPVerification';
+
 import { Dashboard } from './pages/Dashboard';
 import { Settings } from './pages/Settings';
 import { History } from './pages/History';
@@ -25,7 +25,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/otp-verification" element={<OTPVerification />} />
+          
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/auth/callback" element={<AuthCallback />} />

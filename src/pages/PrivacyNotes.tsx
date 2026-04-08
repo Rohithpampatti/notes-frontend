@@ -3,7 +3,7 @@ import { Sidebar } from '../components/Sidebar';
 import { NoteCard } from '../components/NoteCard';
 import { NoteModal } from '../components/NoteModal';
 import { SetPrivacyPasswordModal } from '../components/SetPrivacyPasswordModal';
-import { UnlockPrivacyModal } from '../components/UnlockPrivacyModal';
+import { UnlockPrivacyPasswordModal } from '../components/UnlockPrivacyPasswordModal';
 import { Lock, Unlock, Shield, Eye } from 'lucide-react';
 import API from '../api';
 import { useAuth } from '../contexts/AuthContext';
@@ -40,7 +40,6 @@ export const PrivacyNotes = () => {
       const response = await API.get('/notes/privacy/has-password');
       setHasPassword(response.data.hasPassword);
       
-      // Check session storage for unlock
       const unlocked = sessionStorage.getItem('privacyUnlocked') === 'true';
       
       if (response.data.hasPassword && !unlocked) {
@@ -113,7 +112,6 @@ export const PrivacyNotes = () => {
     }
   };
 
-  // Blur content component
   const BlurredContent = () => (
     <div className="flex flex-col items-center justify-center py-16">
       <div className="w-32 h-32 rounded-full bg-white/5 flex items-center justify-center mb-4">
@@ -141,7 +139,6 @@ export const PrivacyNotes = () => {
     <div className="flex min-h-screen bg-[#0f172a]">
       <Sidebar />
       
-      {/* Set Password Modal (first time user) */}
       {showSetPasswordModal && (
         <SetPrivacyPasswordModal
           onSuccess={handleSetPasswordSuccess}
@@ -149,9 +146,8 @@ export const PrivacyNotes = () => {
         />
       )}
 
-      {/* Unlock Modal (returning user) */}
       {showUnlockModal && (
-        <UnlockPrivacyModal
+        <UnlockPrivacyPasswordModal
           onSuccess={handleUnlockSuccess}
           onClose={() => setShowUnlockModal(false)}
         />
@@ -159,7 +155,6 @@ export const PrivacyNotes = () => {
 
       <main className="flex-1 overflow-auto p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
           <div className="flex justify-between items-center mb-8">
             <div>
               <div className="flex items-center gap-3 mb-2">
@@ -185,7 +180,6 @@ export const PrivacyNotes = () => {
             )}
           </div>
 
-          {/* Content - Blurred if locked */}
           {!isUnlocked ? (
             <div className="backdrop-blur-xl bg-white/5 rounded-xl p-8 border border-white/10">
               <BlurredContent />
