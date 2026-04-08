@@ -29,13 +29,14 @@ export const Register = () => {
 
     setLoading(true);
 
-    const { error } = await signUp(email, password, name);
+    const { error: signUpError } = await signUp(email, password, name);
 
-    if (error) {
-      setError(error.message);
+    if (signUpError) {
+      setError(signUpError.message);
       setLoading(false);
     } else {
-      navigate('/otp-verification', { state: { email } });
+      // Redirect to login page after successful registration
+      navigate('/login', { state: { message: 'Account created successfully! Please login.' } });
     }
   };
 

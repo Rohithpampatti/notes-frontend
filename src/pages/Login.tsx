@@ -1,5 +1,5 @@
 // Updated: Removed Google Sign-In - v2
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Lock, Mail } from 'lucide-react';
@@ -15,13 +15,15 @@ export const Login = () => {
   const location = useLocation();
 
   // Check for success message from registration
-  useState(() => {
+  useEffect(() => {
     if (location.state?.message) {
       setSuccessMessage(location.state.message);
       // Clear the message after 5 seconds
       setTimeout(() => setSuccessMessage(''), 5000);
+      // Clear the location state
+      window.history.replaceState({}, document.title);
     }
-  }, []);
+  }, [location]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
