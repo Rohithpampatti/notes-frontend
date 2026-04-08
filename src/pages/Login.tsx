@@ -1,4 +1,7 @@
+
+// Updated: Removed Google Sign-In - v2
 import { useState } from 'react';
+// ... rest of the codeimport { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Lock, Mail } from 'lucide-react';
