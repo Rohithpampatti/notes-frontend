@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabaseClient';
-import { User, Mail, Lock, Chrome } from 'lucide-react';
+import { User, Mail, Lock } from 'lucide-react';
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -37,25 +36,6 @@ export const Register = () => {
       setLoading(false);
     } else {
       navigate('/otp-verification', { state: { email } });
-    }
-  };
-
-  const handleGoogleSignUp = async () => {
-    setLoading(true);
-    setError('');
-    
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: 'https://notes-frontend-gamma-lovat.vercel.app/dashboard'
-        }
-      });
-      
-      if (error) throw error;
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign up with Google');
-      setLoading(false);
     }
   };
 
@@ -143,26 +123,6 @@ export const Register = () => {
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/10"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-transparent text-gray-400">Or continue with</span>
-              </div>
-            </div>
-
-            <button 
-              onClick={handleGoogleSignUp}
-              disabled={loading}
-              className="mt-4 w-full py-3 bg-white/5 border border-white/10 rounded-lg text-white font-medium hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
-            >
-              <Chrome className="w-5 h-5" />
-              <span>Sign up with Google</span>
-            </button>
-          </div>
 
           <p className="mt-6 text-center text-gray-400">
             Already have an account?{' '}
