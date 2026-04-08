@@ -33,12 +33,13 @@ export const Login = () => {
     
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-  provider: 'google',
-  options: {
-    redirectTo: 'https://notes-frontend-gamma-lovat.vercel.app/dashboard',
-    scopes: 'https://www.googleapis.com/auth/userinfo.email'
-  }
-});
+        provider: 'google',
+        options: {
+          // ✅ CHANGED: Use callback route
+          redirectTo: 'https://notes-frontend-gamma-lovat.vercel.app/auth/callback',
+          scopes: 'https://www.googleapis.com/auth/userinfo.email'
+        }
+      });
       
       if (error) throw error;
     } catch (err: any) {

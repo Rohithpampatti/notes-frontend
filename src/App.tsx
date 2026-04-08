@@ -13,6 +13,8 @@ import { About } from './pages/About';
 import { Terms } from './pages/Terms';
 import { Profile } from './pages/Profile';
 import { Editor } from './pages/Editor';
+import AuthCallback from './pages/auth/callback';
+
 
 function App() {
   return (
@@ -137,6 +139,8 @@ function App() {
           
           {/* Catch all - 404 redirect to dashboard */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+          <Route path="/auth/callback" element={<AuthCallback />} />
         </Routes>
       </Router>
     </AuthProvider>
